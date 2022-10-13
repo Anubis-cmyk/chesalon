@@ -6,29 +6,10 @@ import male from '../images/male.png';
 import APIService from '../Api/APIService'
 import TextInput from "./components/TextInput";
 
-
-/**
- * initial states for inputs
- */
-const initialState = { 
-        Age: "",
-        Sex: "",
-        ChestPainType:"",
-        RestingBP:"",
-        Cholesterol:"",
-        FastingBS:"",
-        RestingECG:"",
-        MaxHR:"",
-        Oldpeak:"",
-        ExerciseAngina:"",
-        ST_Slope:""
-    };
-
-
 const  RightSection = () => {
 
     //useStates
-     const [formData, setFormData] = useState(initialState); //form date 
+     const [formData, setFormData] = useState({}); //form date 
      const [inputs, setInputs] = useState([]); //all form inputs 
      const [numericInputs, setNumericInputs] = useState([])//numeric form inputs 
      const [data, setData] = useState({})//non numeric form inputs 
@@ -72,7 +53,8 @@ const  RightSection = () => {
         }
         if(formData){
              try {
-            const rawResponse = await fetch(`http://127.0.0.1:5000/heart?Age=`+formData.Age+`&Sex=`+formData.Sex+`&ChestPainType=`+formData.ChestPainType+`&RestingBP=`+formData.RestingBP+`&Cholesterol=`+formData.Cholesterol+`&FastingBS=`+formData.FastingBS+`&RestingECG=`+formData.RestingECG+`&MaxHR=`+formData.MaxHR+`&ExerciseAngina=`+formData.ExerciseAngina+`&Oldpeak=`+formData.Oldpeak+`&ST_Slope=`+formData.ST_Slope+``, {
+            const rawResponse = await fetch(`http://127.0.0.1:5000/heart`, {
+              body : formData,
               method: 'POST',
               mode: 'cors',
               headers: {
@@ -85,7 +67,8 @@ const  RightSection = () => {
                  navigate({
                     pathname: "/finish",
                     search:createSearchParams({
-                      result: content.HeartDisease
+                      result: content.HeartDisease,
+                      type: content.HeartDisease.key
                     }).toString()
                 });
         

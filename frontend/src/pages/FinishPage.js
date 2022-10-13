@@ -7,6 +7,7 @@ const  FinishPage = () => {
     const navigate = useNavigate(); //navigate to other pages
     const [searchParams] = useSearchParams();
     const [result, setResult] = useState(searchParams.get("result"));
+    const [type, setType] = useState(searchParams.get("type"));
     
     return(
         <div className="resultBack">
@@ -15,7 +16,7 @@ const  FinishPage = () => {
                 <div className="title">
                     <h2>Predicted result is</h2>
                     <div className="para">
-                        <p className={result*100 > 50 ?"text-red":"text-green"}><h1>We predict you have {result*100}% chance to have heart disease </h1> </p>
+                        <p className={result*100 > 50 ?"text-red":"text-green"}><h1>Prediction result is {type}% for {}  </h1> </p>
                     </div>
                     <h4>Thank you </h4>
                 </div>
